@@ -1,0 +1,23 @@
+.starsContainer {
+  /* background-color: red; */
+  display: flex;
+  /* align-items: center;
+  margin: 5px 0; */
+}
+
+.stars {
+  width: 20px;
+  height: 20px;
+}
+
+.halfStarImg {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.halfStar {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

@@ -1,0 +1,77 @@
+.onboardingContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.onboardingLoadingDiv{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.onboardingInner{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  /* padding: 20px; */
+  padding-top: 50px;
+  max-width: 700px;
+}
+.onboardingInner h1{
+  text-align: center;
+  margin-bottom: 40px;
+}
+.onboardingItems{
+padding:10px 20px;
+}
+.onboardingItems p{
+  margin-bottom: 5px;
+}
+.onboardingItems input{
+  width: 100%;
+  background-color: aliceblue;
+  border: 1px solid;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.onboardingItemPassword{
+padding:10px 20px;
+}
+.onboardingItemPassword p{
+  margin-bottom: 5px;
+}
+.onboardingItemPassword img{
+  width: 24px;
+}
+.onboardingItemPassword div{
+  width: 100%;
+  background-color: aliceblue;
+  border: 1px solid;
+  font-size: 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.onboardingItemPassword div input{
+  padding: 5px 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  width: calc(100% - 30px);
+  background-color: aliceblue;
+}
+.onboardingInner button{
+  margin: auto;
+  margin-bottom: 50px;
+  width: 80%;
+  max-width: 500px;
+  color: whitesmoke;
+  padding: 10px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  background-color: #010121;
+}

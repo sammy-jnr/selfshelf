@@ -1,38 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
 .App {
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  /* display: flex;
+  flex-direction: column; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.extraSmallIcon {
+  width: 10px;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.smallIcon {
+  width: 12px;
+  position: relative;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.small_medium {
+  width: 16px;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.mediumIcon {
+  width: 20px;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
+.largeIcon {
+  width: 28px;
+  position: relative;
+}
+
+.extraLargeIcon {
+  width: 40px;
+  position: relative;
+}
+
+.links {
+  all: unset;
+}
+
+.links:hover {
+  cursor: pointer;
+}
+
+.profileImgs {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.generalLoadingIcon {
+  width: 26px;
+  height: 26px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+
+  100% {
     transform: rotate(360deg);
   }
+}
+
+.generalLoadingIconSmall {
+  width: 16px;
+  height: 16px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.generalLoadingIconLarge {
+  width: 140px;
+  height: 140px;
+  border: 15px solid #45458d;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hoverable:hover {
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
+button:hover {
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
+
+input:focus{
+  outline: none;
+}
+
+.errorText{
+  font-size: 15px;
+  color: red;
+}
+
+.link{
+  all: unset;
 }

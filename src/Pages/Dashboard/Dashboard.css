@@ -1,0 +1,387 @@
+.dashboardContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #f7f3ff;
+}
+
+.dashboardContainer header {
+  background-color: #402087;
+  color: #e2e2e2;
+  padding: 15px;
+}
+
+.dashboardHeader1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboardHeader1 div {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dashboardHeader2 {
+  background-color: #e2e2e2;
+  color: #150637;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.dashboardHeader2 h2 {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboardHeader2 h2 div{
+  display: flex;
+  align-items: center;
+}
+.dashboardHeader2 h2 div img {
+  border: 2px solid;
+  border-radius: 50%;
+  padding: 2px;
+  width: 21px;
+}
+
+.categoriesList {
+  display: flex;
+  overflow-x: scroll;
+  /* enable horizontal scrolling */
+  overflow-y: hidden;
+  /* disable vertical scrolling */
+  margin-top: 20px;
+}
+
+.categoriesList::-webkit-scrollbar {
+  display: none;
+  /* hide the scrollbar */
+}
+
+.category {
+  padding: 5px 12px;
+  border: 2px solid;
+  margin-right: 10px;
+  border-radius: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  min-width: fit-content;
+}
+.category img{
+  margin-left: 10px;
+}
+.searchSection{
+  height: 50px;
+  display: grid;
+  padding: 10px;
+  /* width: 95%; */
+  margin: auto;
+  /* color: white; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+}
+.searchSection div button{
+  height: 30px;
+  padding: 0 10px;
+  border: none;
+}
+.searchSection div button:last-of-type{
+  border-radius: 0 30px 30px 0;
+}
+
+.searchSection input{
+  height: 30px;
+  width: calc(100% - 120px);
+  border: none;
+  border-radius: 30px 0 0 30px;
+  padding: 5px 20px;
+}
+.dashboardBody {
+  height: calc(100% - 244px);
+  overflow-y: auto;
+  display: flex;
+  background-color: #f7f3ff;
+
+}
+.dashboardBody1{
+  display: none;
+  overflow-y: auto;
+}
+
+.dashboardBody2 {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f7f3ff;
+  position: relative;
+}
+.firstBookDiv{
+  background-color: rgba(128, 128, 128, 0.951);
+  width: 80%;
+  max-width: 400px;
+  aspect-ratio: 1/1;
+  margin: auto;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+}
+.firstBookDiv p{
+  font-size: 25px;
+  text-align: center;
+  color: #e2e2e2;
+  font-weight: 600;
+}
+.firstBookDiv img{
+  width: 75%;
+}
+.noBookMatch{
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  border: 3px solid;
+  text-align: center;
+  font-weight: 700;
+}
+
+.book {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  /* background-color: #f3eeff; */
+  padding: 10px;
+  position: relative;
+}
+.book h2{
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+
+.book:hover {
+  background-color: #eae2ff;
+}
+
+.bookImg {
+  width: 30%;
+  max-width: 120px;
+  aspect-ratio: 1/1;
+  border: 4px solid;
+  margin-right: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bookImage{
+  width: 100%;
+  height: 100%;
+}
+
+.bookBasicInfo {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 70%;
+  text-overflow: clip;
+  word-break: break-all;
+}
+
+.bookBasicInfo h2 {
+  font-size: 20px;
+  height: 30px;
+}
+
+.bookCategories {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.bookCategories p {
+  padding: 5px 10px;
+  background-color: #150637;
+  color: white;
+  margin: 5px 0px ;
+  margin-right: 10px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.favouriteText{
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  background-color: #77f577;
+  padding: 2px 10px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 2;
+}
+.showMore{
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: #1b167893;
+  color: rgb(212, 211, 211);
+  padding: 3px;
+  border-radius: 30px;
+}
+.deleteBookIcon{
+  position: absolute;
+  width: 26px;
+  top: 0px;
+  right: 10px;
+  z-index: 3;
+  padding: 5px;
+  background-color: rgb(226, 155, 155);
+  border-radius: 50%;
+}
+.addBookButton {
+  all: unset;
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  background-color: green;
+  color: whitesmoke;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+.dashboardPopup{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: #b7b7b7cf;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+}
+.deleteCategoryContainer{
+  width: 90%;
+  height: 250px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.deleteCategoryInputDiv label{
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+.deleteCategoryInputDiv input{
+  color: #150637;
+  width: 16px;
+  height: 16px;
+  margin: 10px 0;
+  margin-right: 20px;
+}
+.deleteCategoryButtons{
+  margin-top: auto;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin: auto;
+}
+.deleteCategoryButtons button{
+  width: 45%;
+  border: none;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 30px;
+  background-color: #d1d1d1;
+  max-width: 200px;
+}
+.deleteCategoryButtons button:last-of-type{
+  background-color: red;
+  color: #f7f3ff;
+}
+.yesNoDiv{
+  background-color: #e2e2e2;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 5px;
+}
+.yesNoDiv p{
+  padding: 10px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+.yesNoDiv div{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 25px;
+}
+.yesNoDiv div button{
+  width: 40%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 4px solid rgb(198, 221, 195);
+  font-weight: 600;
+  background-color: #402087;
+  color: #f7f3ff;
+
+}
+.yesNoDiv div button:last-of-type{
+  background-color: red;
+  color: #f7f3ff;
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width:1201px) {
+  .dashboardBody2 {
+    width: 50%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f7f3ff;
+    position: relative;
+    padding: 10px 30px;
+  }
+  .dashboardBody1 {
+    display: grid;
+    place-items: center;
+    padding: 10px 30px;
+    width: 50%;
+    max-width: 1000px;
+  }
+  .showMore{
+    display: none;
+  }
+}
