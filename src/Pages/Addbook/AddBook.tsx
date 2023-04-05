@@ -22,14 +22,12 @@ const AddBook = () => {
   const bookISBNRef = useRef<HTMLInputElement>(null)
   const bookLinkRef = useRef<HTMLInputElement>(null)
   const bookIsFavouriteRef = useRef<HTMLInputElement>(null)
-  // const bookNameRef = useRef<HTMLInputElement>(null)
 
   const newGenreRef = useRef<HTMLInputElement>(null)
   const cropperRef = useRef<ReactCropperElement>(null);
   const fileRef: React.Ref<HTMLInputElement> = useRef(null)
 
   const [isLoading, setisLoading] = useState(false);
-
 
   const dispatch = useDispatch()
 
@@ -57,16 +55,10 @@ const AddBook = () => {
   const categories = store.main.categories
   const booksArray = store.main.booksArray
 
-
-
-
-
-
   const selectedCategoryStyle = {
     backgroundColor: "#02022b",
     color: "white"
   }
-
 
   const onCrop = async () => {
     const cropper = cropperRef.current?.cropper;
@@ -80,10 +72,10 @@ const AddBook = () => {
     const files = e.currentTarget.files
     if (files) {
       const file = files[0]
-      if (file.size > 2048000) {
+      if (file.size > 5048000) {
         if (fileRef.current)
           fileRef.current.value = ""
-        //TODO add an alert for file is too large
+          toast("File must be less than 5MB",{type:"error"})
         return
       }
       const reader = new FileReader()
@@ -112,6 +104,11 @@ const AddBook = () => {
     const pdf = pdfFile
     const categories = selectedCategories
     const rating = bookRating
+
+    if(pdfFile && pdfFile?.size > 5048000){
+      toast("Pdf is too large, max size(5MB)", {type: "error"})
+      return
+    }
 
     if (!name || !author || !description || !numberOfPages || !imgFile || categories.length < 1) {
       toast("Some mandatory fields are still empty", {
@@ -151,18 +148,6 @@ const AddBook = () => {
         setisLoading(false)
       })
   }
-
-
-
-  const displaySelectedCategories = selectedCategories.map((category) => {
-    return <div className=''>
-      <p>{category}</p>
-      <img src={closeIcon} alt=''
-        onClick={() => { }}
-        className='mediumIcon'
-      />
-    </div>
-  })
 
   const displayAllCategories = categories.map((category) => {
     return (
@@ -228,6 +213,7 @@ const AddBook = () => {
                   placeholder='Genre name'
                   spellCheck={false}
                   ref={newGenreRef}
+                  maxLength={25}
                   onFocus={() => setcategoryNameExists(false)}
                 />
                 <button

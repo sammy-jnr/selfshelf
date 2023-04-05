@@ -1,19 +1,45 @@
 import React from "react";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RootState } from "../../store"
+import { useDispatch, useSelector } from "react-redux"
+import logo from "../../Assets/images/logo.png"
 
 function Home() {
+  const store = useSelector((store: RootState) => store)
+  const isLoading = store.auth.initialLoading
+  const isLoggedIn = store.auth.isLoggedIn
+
+  const navigate = useNavigate()
+
+
   return (
     <div className="homeContainer">
       <h2 className="siteName">Self shelf</h2>
       <section className="mainSection">
         <h1>
-          Welcome to the best online book catalogue
+          Welcome to the best online personal library
         </h1>
-        <p>Catalogue and organize your books in the best way possible</p>
-        <p className="mainSectionSecondP">It is free and easy to use</p>
+        <p>Store and organize your books for free in the best way possible</p>
         <Link to={"/dashboard"}>
-          <button>Get started</button>
+          <button
+            onClick={() => {
+              if (isLoading) return
+              isLoggedIn ? navigate("/dashboard") : navigate("/register")
+            }}
+          >
+            {
+              isLoading
+                ?
+                <span className="loadingIcon"></span>
+                :
+                isLoggedIn
+                  ?
+                  "Dashboard"
+                  :
+                  "Get started"
+            }
+          </button>
         </Link>
       </section>
     </div>

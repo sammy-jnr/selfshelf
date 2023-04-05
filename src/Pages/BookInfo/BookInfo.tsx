@@ -3,9 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import "./BookInfo.css"
 import arrowBack from "../../Assets/icons/arrowBack.svg"
 import { RootState } from "../../store"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import SelectedBook from '../../utils/SelectedBook/SelectedBook'
-
 
 
 const BookInfo = () => {
@@ -14,8 +13,7 @@ const BookInfo = () => {
   const store = useSelector((store: RootState) => store)
   const books = store.main.booksArray
   const book = books.find(book => book.id === params.bookId)
-
-
+  
   const navigate = useNavigate()
 
   if (!book) return null

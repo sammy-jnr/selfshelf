@@ -1,12 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import openEyesIcon from "../../Assets/icons/openEyesIcon.svg";
 import closedEyesIcon from "../../Assets/icons/closedEyesIcon.svg";
 import googleIcon from "../../Assets/icons/googleIcon.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { registerNewUser } from "../../utils/axiosCalls"
 import "./Sign.css"
-import { RootState } from "../../store"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { setIsLoggedIn } from "../../Features/AuthSlice";
 import { setCookie } from "../../utils/cookies";
 import { setUsername, setUserEmail } from "../../Features/MainSlice";
@@ -19,8 +18,6 @@ const Register = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const store = useSelector((store: RootState) => store)
-
 
   const [viewPassword, setviewPassword] = useState<boolean>(false);
   const [username, setusername] = useState<string>("");
@@ -208,7 +205,7 @@ const Register = () => {
           </button>
 
           <p className="altText">
-            Don't have an account? <Link to="/signin">Register</Link>
+            Already have an account? <Link to="/login">login</Link>
           </p>
         </div>
       </div>

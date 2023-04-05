@@ -1,6 +1,6 @@
 import axios from "axios"
 import { getCookie } from "./cookies"
-import { BookInterface, ProcessedBookInterface } from "../Interface";
+import { ProcessedBookInterface } from "../Interface";
 
 const accessTokenCookie = getCookie("accessToken")
 const refreshTokenCookie = getCookie("refreshToken")
@@ -17,7 +17,7 @@ const baseUrl = "http://localhost:5000"
 export const registerNewUser = (username:string,email:string,password:string) => {
   return axios({
     withCredentials: true,
-    url: "http://localhost:5000/register",
+    url: `${baseUrl}/register`,
     method: "post",
     data:{
       username,
@@ -83,17 +83,17 @@ export const getNewAccessToken = (email:string) => {
   })
 }
 
-// export const changeNameDb = (newName:string) => {
-//   return axios({
-//     withCredentials: true,
-//     url: `${baseUrl}/changeName`,
-//     method: "post",
-//     data:{
-//       newName
-//     },
-//     headers: headers
-//   })
-// }
+export const changeNameDb = (newName:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/changeName`,
+    method: "post",
+    data:{
+      newName
+    },
+    headers: headers
+  })
+}
 
 export const createNewCategory = (categoryName:string) => {
   return axios({
@@ -122,7 +122,7 @@ export const addNewBook = (bookdata:FormData) => {
   console.log(accessTokenCookie)
   return axios({
     withCredentials: true,
-    url: `http://localhost:5000/addBook`,
+    url: `${baseUrl}/addBook`,
     method: "post",
     data: bookdata,
     headers: {

@@ -9,7 +9,6 @@ const SelectedBook = (props: { book: ProcessedBookInterface | undefined }) => {
   if (!props.book) return null
   const book = props.book
   const date = new Date(Number(book.dateAdded))
-  console.log(date.toLocaleString())
   return (
     <div className="bookInfoInner">
       <div className="bookInfoInner_Top">
@@ -28,15 +27,15 @@ const SelectedBook = (props: { book: ProcessedBookInterface | undefined }) => {
           </div>
           <div className="bookInfoItemsDiv">
             <p className='bookInfoItemsKey'>Rating</p>
-            <div className='bookInfoItemsValue'><Star amount={book?.rating} /></div>
+            <div className='bookInfoItemsValue'><Star amount={Number(book?.rating)} /></div>
           </div>
           <div className="bookInfoItemsDiv">
             <p className='bookInfoItemsKey'>Genre</p>
-            <p className='bookInfoItemsValue bookInfoCategoriesContainer'>
+            <div className='bookInfoItemsValue bookInfoCategoriesContainer'>
               {book?.categories.map((category => {
                 return <div key={category} className="bookInfoCategories">{category}</div>
               }))}
-            </p>
+            </div>
           </div>
 
         </div>
@@ -44,7 +43,7 @@ const SelectedBook = (props: { book: ProcessedBookInterface | undefined }) => {
       <div className="bookInfoInner_Bottom">
         <div className="bookInfoItemsDiv">
           <p className='bookInfoItemsKey'>Link</p>
-          <p className='bookInfoItemsValue'>{
+          <p className='bookInfoItemsValue bookInfoLink'>{
             <Link to={book.link ? book.link : ""} className='booklink'>{book.link}</Link>
             ||
             "No link"
@@ -64,8 +63,8 @@ const SelectedBook = (props: { book: ProcessedBookInterface | undefined }) => {
           <p className='bookInfoItemsValue'>{date.toLocaleString('en-US',{month: "long", year:"numeric"}).split(",")[0]}</p>
         </div>
         <div className="bookInfoItemsDiv">
-          <p className='bookInfoItemsKey'>Description</p>
-          <p className='bookInfoItemsValue'>{book.description}</p>
+          <p className='bookInfoItemsKey bookInfoDescriptionKey'>Description</p>
+          <p className='bookInfoItemsValue bookInfoDescriptionValue'>{book.description}</p>
         </div>
       </div>
       {book.pdfFile && <div className="bookInfoItemsFileDiv">

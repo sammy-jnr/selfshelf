@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BookInterface, ProcessedBookInterface } from '../Interface'
+import { ProcessedBookInterface } from '../Interface'
 
 
 const categoryList = ["Comedy", "Entertainment", "Wealth"]
@@ -9,7 +9,9 @@ interface InitialState {
   username: string,
   email: string,
   booksArray: ProcessedBookInterface[],
-  categories: string[]
+  categories: string[],
+  dashboardScrollPosition: number
+  selectedCategory: string
 }
 
 
@@ -18,7 +20,9 @@ const initialState:InitialState = {
   booksArray: [],
   categories: categoryList,
   username: "",
-  email: ""
+  email: "",
+  dashboardScrollPosition: 0,
+  selectedCategory: "All"
 }
 
 const mainSlice = createSlice({
@@ -36,6 +40,12 @@ const mainSlice = createSlice({
     },
     setUserEmail: (state, actions:PayloadAction<string>) => {
       state.email = actions.payload
+    },
+    setDashboardScrollPosition: (state, actions:PayloadAction<number>) => {
+      state.dashboardScrollPosition = actions.payload
+    },
+    setSelectedCategory: (state, actions:PayloadAction<string>) => {
+      state.selectedCategory = actions.payload
     }
   }
 })
@@ -44,7 +54,9 @@ export const {
   setBooksArray,
   setCategoriesArray,
   setUsername,
-  setUserEmail
+  setUserEmail,
+  setDashboardScrollPosition,
+  setSelectedCategory
 } = mainSlice.actions
 
 export default mainSlice.reducer

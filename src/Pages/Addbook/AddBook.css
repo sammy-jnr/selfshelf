@@ -182,7 +182,8 @@
   display: flex;
   position: relative;
 }
-.imageFileCloseButton{
+
+.imageFileCloseButton {
   width: 25px;
   position: absolute;
   top: 10px;

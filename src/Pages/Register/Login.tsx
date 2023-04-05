@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import openEyesIcon from "../../Assets/icons/openEyesIcon.svg";
 import closedEyesIcon from "../../Assets/icons/closedEyesIcon.svg";
 import googleIcon from "../../Assets/icons/googleIcon.svg";
@@ -7,7 +7,7 @@ import { loginDB } from "../../utils/axiosCalls";
 import "./Sign.css"
 import { setCookie } from "../../utils/cookies";
 import { setBooksArray, setCategoriesArray, setUsername, setUserEmail } from "../../Features/MainSlice";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { setIsLoggedIn } from "../../Features/AuthSlice";
 import { googleLoginUrl } from "../../utils/google";
 
@@ -102,7 +102,7 @@ const Login = () => {
             {!isPasswordCorrect && <div className="errorTexts">Incorrect password</div>}
           </div>
           <button className="signButton" onClick={() => login(email, password)}>Sign in</button>
-          <p className="altText">Don't have an account? <Link to="/signup">Register</Link></p>
+          <p className="altText">Don't have an account? <Link to="/register">Register</Link></p>
         </div>
       </div>
     </div>

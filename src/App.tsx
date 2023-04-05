@@ -9,21 +9,20 @@ import Register from './Pages/Register/Register';
 import Login from './Pages/Register/Login';
 import { getCookie, setCookie } from './utils/cookies';
 import { getNewAccessToken, getUser } from './utils/axiosCalls';
-import { RootState } from "./store"
-import { useDispatch, useSelector } from "react-redux"
-import { setIsLoggedIn } from './Features/AuthSlice';
+import { useDispatch } from "react-redux"
+import { setInitialLoading, setIsLoggedIn } from './Features/AuthSlice';
 import { setBooksArray, setCategoriesArray, setUsername } from './Features/MainSlice';
 import { ProcessedBookInterface } from './Interface';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import GoogleOnboarding from './Pages/Onboarding/GoogleOnboarding';
+import ProtectedRoutes from './ProtectedRoutes';
 
 
 
 function App() {
 
   const dispatch = useDispatch()
-  // const store = useSelector((store: RootState) => store)
   const fetchUserInfoFromDB = () => {
     getUser()
       .then((res) => {
@@ -31,6 +30,8 @@ function App() {
         dispatch(setBooksArray(books.sort((a: ProcessedBookInterface, b: ProcessedBookInterface) => a.name.localeCompare(b.name))))
         dispatch(setCategoriesArray(categories))
         dispatch(setUsername(username))
+        dispatch(setIsLoggedIn(true))
+        dispatch(setInitialLoading(false))
       })
       .catch(() => {
 
@@ -57,17 +58,11 @@ function App() {
 
           })
       } else {
-        setIsLoggedIn(false)
+        dispatch(setIsLoggedIn(false))
+        dispatch(setInitialLoading(false))
       }
     }
   }, []);
-  // onClick={() => {
-  //   toast("wow so easy", {
-  //     type: "error"
-  //   })
-  // }}
-
-
 
   return (
     <div className="App">
@@ -79,15 +74,17 @@ function App() {
         pauseOnFocusLoss
         pauseOnHover
         theme="light"
-        />
+      />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/addbook" element={<AddBook />} />
-          <Route path="/dashboard/info/:bookId" element={<BookInfo />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/addbook" element={<AddBook />} />
+            <Route path="/dashboard/info/:bookId" element={<BookInfo />} />
+          </Route>
           <Route path="/:action/authenticate/google" element={<GoogleOnboarding />} />
         </Routes>
       </Router>

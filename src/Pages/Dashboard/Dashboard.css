@@ -37,10 +37,12 @@
   align-items: center;
   justify-content: space-between;
 }
-.dashboardHeader2 h2 div{
+
+.dashboardHeader2 h2 div {
   display: flex;
   align-items: center;
 }
+
 .dashboardHeader2 h2 div img {
   border: 2px solid;
   border-radius: 50%;
@@ -51,9 +53,7 @@
 .categoriesList {
   display: flex;
   overflow-x: scroll;
-  /* enable horizontal scrolling */
   overflow-y: hidden;
-  /* disable vertical scrolling */
   margin-top: 20px;
 }
 
@@ -73,10 +73,12 @@
   height: 32px;
   min-width: fit-content;
 }
-.category img{
+
+.category img {
   margin-left: 10px;
 }
-.searchSection{
+
+.searchSection {
   height: 50px;
   display: grid;
   padding: 10px;
@@ -88,22 +90,25 @@
   justify-content: space-between;
   max-width: 1200px;
 }
-.searchSection div button{
+
+.searchSection div button {
   height: 30px;
   padding: 0 10px;
   border: none;
 }
-.searchSection div button:last-of-type{
+
+.searchSection div button:last-of-type {
   border-radius: 0 30px 30px 0;
 }
 
-.searchSection input{
+.searchSection input {
   height: 30px;
   width: calc(100% - 120px);
   border: none;
   border-radius: 30px 0 0 30px;
   padding: 5px 20px;
 }
+
 .dashboardBody {
   height: calc(100% - 244px);
   overflow-y: auto;
@@ -111,7 +116,8 @@
   background-color: #f7f3ff;
 
 }
-.dashboardBody1{
+
+.dashboardBody1 {
   display: none;
   overflow-y: auto;
 }
@@ -123,7 +129,8 @@
   background-color: #f7f3ff;
   position: relative;
 }
-.firstBookDiv{
+
+.firstBookDiv {
   background-color: rgba(128, 128, 128, 0.951);
   width: 80%;
   max-width: 400px;
@@ -138,16 +145,19 @@
   display: grid;
   place-items: center;
 }
-.firstBookDiv p{
+
+.firstBookDiv p {
   font-size: 25px;
   text-align: center;
   color: #e2e2e2;
   font-weight: 600;
 }
-.firstBookDiv img{
+
+.firstBookDiv img {
   width: 75%;
 }
-.noBookMatch{
+
+.noBookMatch {
   margin: auto;
   position: absolute;
   top: 50%;
@@ -168,12 +178,11 @@
   padding: 10px;
   position: relative;
 }
-.book h2{
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  word-break: break-all;
-  overflow-wrap: break-word;
+
+.book h2 {
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .book:hover {
@@ -191,7 +200,8 @@
   align-items: center;
   justify-content: center;
 }
-.bookImage{
+
+.bookImage {
   width: 100%;
   height: 100%;
 }
@@ -220,13 +230,13 @@
   padding: 5px 10px;
   background-color: #150637;
   color: white;
-  margin: 5px 0px ;
+  margin: 5px 0px;
   margin-right: 10px;
   border-radius: 4px;
   font-size: 15px;
 }
 
-.favouriteText{
+.favouriteText {
   position: absolute;
   top: 0px;
   left: 10px;
@@ -237,7 +247,8 @@
   font-weight: 600;
   z-index: 2;
 }
-.showMore{
+
+.showMore {
   position: absolute;
   bottom: 0;
   right: 10px;
@@ -248,7 +259,8 @@
   padding: 3px;
   border-radius: 30px;
 }
-.deleteBookIcon{
+
+.deleteBookIcon {
   position: absolute;
   width: 26px;
   top: 0px;
@@ -258,11 +270,12 @@
   background-color: rgb(226, 155, 155);
   border-radius: 50%;
 }
+
 .addBookButton {
   all: unset;
   position: absolute;
-  bottom: 20px;
-  right: 30px;
+  bottom: 15px;
+  right: 15px;
   background-color: green;
   color: whitesmoke;
   font-size: 17px;
@@ -270,16 +283,20 @@
   padding: 10px 20px;
   border-radius: 30px;
 }
-.dashboardPopup{
+
+.dashboardPopup {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background-color: #b7b7b7cf;
+  background-color: #3131319b;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   z-index: 5;
   display: grid;
   place-items: center;
 }
-.deleteCategoryContainer{
+
+.deleteCategoryContainer {
   width: 90%;
   height: 250px;
   background-color: white;
@@ -291,26 +308,29 @@
   max-width: 600px;
 }
 
-.deleteCategoryInputDiv label{
+.deleteCategoryInputDiv label {
   display: flex;
   align-items: center;
   margin: 10px 0;
 }
-.deleteCategoryInputDiv input{
+
+.deleteCategoryInputDiv input {
   color: #150637;
   width: 16px;
   height: 16px;
   margin: 10px 0;
   margin-right: 20px;
 }
-.deleteCategoryButtons{
+
+.deleteCategoryButtons {
   margin-top: auto;
   display: flex;
   width: 100%;
   justify-content: space-around;
   margin: auto;
 }
-.deleteCategoryButtons button{
+
+.deleteCategoryButtons button {
   width: 45%;
   border: none;
   padding: 10px;
@@ -319,29 +339,34 @@
   background-color: #d1d1d1;
   max-width: 200px;
 }
-.deleteCategoryButtons button:last-of-type{
+
+.deleteCategoryButtons button:last-of-type {
   background-color: red;
   color: #f7f3ff;
 }
-.yesNoDiv{
+
+.yesNoDiv {
   background-color: #e2e2e2;
   width: 90%;
   max-width: 500px;
   border-radius: 5px;
 }
-.yesNoDiv p{
+
+.yesNoDiv p {
   padding: 10px;
   padding-top: 20px;
   text-align: center;
   font-size: 20px;
 }
-.yesNoDiv div{
+
+.yesNoDiv div {
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 25px;
 }
-.yesNoDiv div button{
+
+.yesNoDiv div button {
   width: 40%;
   padding: 10px;
   border-radius: 10px;
@@ -351,9 +376,78 @@
   color: #f7f3ff;
 
 }
-.yesNoDiv div button:last-of-type{
+
+.yesNoDiv div button:last-of-type {
   background-color: red;
   color: #f7f3ff;
+}
+
+.profileOptions {
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.524);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  right: 0px;
+  top: 56px;
+  width: 100%;
+  display: flex;
+}
+
+.profileOptions1 {
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+  max-width: 200px;
+  padding: 10px;
+  margin-left: auto;
+}
+
+.profileOptions1 button {
+  padding: 15px 25px;
+  border-radius: 30px 30px 0 0;
+  border: none;
+  background-color: #066b7d;
+  color: #f7f3ff;
+  font-size: 16px;
+  font-weight: 600;
+
+}
+
+.profileOptions1 button:last-of-type {
+  background-color: #a13f0b;
+  border-radius: 0 0 30px 30px;
+}
+
+.profileOptions2 {
+  width: 100%;
+  height: 75px;
+  padding: 20px 10px;
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileOptions2 input {
+  width: calc(100% - 60px);
+  height: 100%;
+  border: none;
+  padding: 3px 10px;
+  border-radius: 5px 0 0 5px;
+}
+
+.profileOptions2 button {
+  border: none;
+  padding: 5px;
+  height: 100%;
+  background-color: #150637;
+  color: #e2e2e2;
+  border-radius: 0 5px 5px 0;
+  font-weight: 600;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -374,6 +468,7 @@
     position: relative;
     padding: 10px 30px;
   }
+
   .dashboardBody1 {
     display: grid;
     place-items: center;
@@ -381,7 +476,8 @@
     width: 50%;
     max-width: 1000px;
   }
-  .showMore{
+
+  .showMore {
     display: none;
   }
 }

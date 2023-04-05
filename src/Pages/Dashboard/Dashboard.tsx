@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import "./Dashboard.css"
-import { BookInterface, ProcessedBookInterface } from '../../Interface'
+import { ProcessedBookInterface } from '../../Interface'
 import Star from '../../utils/Stars/Star'
 import closeDarkblue from "../../Assets/icons/closeDarkblue.svg"
 import editIcon from "../../Assets/icons/editIcon.svg"
@@ -11,23 +11,28 @@ import downIcon from "../../Assets/icons/downIcon.svg"
 import noBookBackground from "../../Assets/images/noBookBackground.png"
 import { RootState } from "../../store"
 import { useDispatch, useSelector } from "react-redux"
-import { setBooksArray, setCategoriesArray } from '../../Features/MainSlice'
+import { setBooksArray, setCategoriesArray, setDashboardScrollPosition, setSelectedCategory, setUsername } from '../../Features/MainSlice'
 import SelectedBook from '../../utils/SelectedBook/SelectedBook'
-import { removeBook, removeCategoryDb } from '../../utils/axiosCalls'
+import { changeNameDb, removeBook, removeCategoryDb } from '../../utils/axiosCalls'
 import { toast } from 'react-toastify'
+import { removeCookie } from '../../utils/cookies'
+import { setIsLoggedIn } from '../../Features/AuthSlice'
 
 
 const Dashboard = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const bookRef = useRef<HTMLDivElement | null>(null)
   const categoryContentRef = useRef<HTMLInputElement | null>(null)
+  const changeNameRef = useRef<HTMLInputElement | null>(null)
 
   const dispatch = useDispatch()
 
   const store = useSelector((store: RootState) => store)
   const booksArray = store.main.booksArray
+  const username = store.main.username
   const categoryList = store.main.categories
-
+  const dashboardScrollPosition = store.main.dashboardScrollPosition
+  const selectedCategory = store.main.selectedCategory
 
 
   const [enterCategoryEditMode, setenterCategoryEditMode] = useState(false);
@@ -37,24 +42,46 @@ const Dashboard = () => {
 
   const [selectedBooksArray, setselectedBooksArray] = useState<ProcessedBookInterface[]>([]);
 
-  const [selectedCategory, setselectedCategory] = useState("All");
-
   const [selectedBookId, setselectedBookId] = useState<string | null>(null);
 
   const [baseBookListForSearch, setbaseBookListForSearch] = useState<ProcessedBookInterface[]>([]);
 
   const [selectedSearchType, setselectedSearchType] = useState<"book" | "author">("book");
 
+  const [showChangeNameDiv, setshowChangeNameDiv] = useState<boolean>(false);
+
+  const [showProfileOptions, setshowProfileOptions] = useState<boolean>(false);
+
+  const [changeNameLoading, setchangeNameLoading] = useState<boolean>(false);
+
   const navigate = useNavigate()
 
-
-  scrollRef.current?.addEventListener("wheel", (e) => {
-    e.preventDefault()
+  useEffect(() => {
     if (scrollRef.current)
-      scrollRef.current.scrollLeft += e.deltaY
-  })
+      scrollRef.current.scrollLeft = dashboardScrollPosition
+  }, [scrollRef.current, dashboardScrollPosition]);
 
-
+  useEffect(() => {
+    const closeProfileOptions = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target || !target.parentElement || !target.parentElement.parentElement || !target.parentElement.parentElement.parentElement || !target.parentElement.parentElement.parentElement.parentElement) return
+      if (
+        !target.classList.contains("profileOptions") &&
+        !target.classList.contains("profileName") &&
+        !target.parentElement.classList.contains("profileOptions") &&
+        !target.parentElement.parentElement.classList.contains("profileOptions") &&
+        !target.parentElement.parentElement.parentElement.classList.contains("profileOptions") &&
+        !target.parentElement.parentElement.parentElement.parentElement.classList.contains("profileOptions")
+      ) {
+        setshowChangeNameDiv(false)
+        setshowProfileOptions(false)
+      }
+    }
+    window.addEventListener("click", (e) => closeProfileOptions(e))
+    return () => {
+      window.removeEventListener("click", (e) => closeProfileOptions(e))
+    }
+  }, []);
 
   useEffect(() => {
     if (selectedCategory === "All") {
@@ -88,7 +115,7 @@ const Dashboard = () => {
 
   const removeCategoryFunc = (category: string) => {
     const newBookArray: ProcessedBookInterface[] = structuredClone(booksArray)
-    let editedBooks:ProcessedBookInterface[] = []
+    let editedBooks: ProcessedBookInterface[] = []
     newBookArray.forEach(book => {
       if (book.categories.length === 1 && book.categories[0] === category) {
         return
@@ -97,16 +124,16 @@ const Dashboard = () => {
           const newBookCategory = book.categories.filter(element => element !== category)
           const newBook = { ...book, categories: newBookCategory }
           editedBooks.push(newBook)
-        }else{
+        } else {
           editedBooks.push(book)
         }
       }
     })
     dispatch(setBooksArray(editedBooks.sort((a: ProcessedBookInterface, b: ProcessedBookInterface) => a.name.localeCompare(b.name))))
-    
+
     const newCategoryList = categoryList.filter((item => item !== category))
     dispatch(setCategoriesArray(newCategoryList))
-    
+
     removeCategoryDb(editedBooks, newCategoryList)
       .catch((error) => {
         console.log(error)
@@ -114,7 +141,105 @@ const Dashboard = () => {
       })
   }
 
+  const search = (searchString: string) => {
+    setselectedBookId(null)
+    if (searchString === "") {
+      setselectedBooksArray(baseBookListForSearch)
+    }
+    if (selectedSearchType === "book") {
+      const filteredBooks = baseBookListForSearch.filter(book => book.name.toLowerCase().startsWith(searchString.toLowerCase()))
+      setselectedBooksArray(filteredBooks)
+    }
+    if (selectedSearchType === "author") {
+      const filteredBooks = baseBookListForSearch.filter(book => book.author.toLowerCase().startsWith(searchString.toLowerCase()))
+      setselectedBooksArray(filteredBooks)
+    }
+  }
 
+
+  const ProfileOptions = () => {
+    return (
+      <div className='profileOptions'>
+        {!showChangeNameDiv &&
+          <div className="profileOptions1">
+            <button
+              onClick={() => { setshowChangeNameDiv(true) }}
+            >Change Name</button>
+            <button
+              onClick={() => {
+                removeCookie("accessToken")
+                removeCookie("refreshToken")
+                dispatch(setIsLoggedIn(false))
+                navigate("/")
+              }}
+            >Log out</button>
+          </div>}
+        {showChangeNameDiv &&
+          <div className='profileOptions2'>
+            <input type="text" name='name' ref={changeNameRef} placeholder='Enter new name' />
+            <button
+              onClick={() => {
+                if (changeNameLoading || !changeNameRef.current) return
+                if (changeNameRef.current.value === "") return
+                setchangeNameLoading(true)
+                changeNameDb(changeNameRef.current.value)
+                  .then((res) => {
+                    if (!changeNameRef.current) return
+                    dispatch(setUsername(res.data))
+                    setchangeNameLoading(false)
+                    setshowChangeNameDiv(false)
+                    setshowProfileOptions(false)
+                    changeNameRef.current.value = ""
+                  })
+                  .catch(() => {
+                    toast("Couldn't update name", { type: "error" })
+                    setchangeNameLoading(false)
+                  })
+              }}
+            >
+              {changeNameLoading ? <span className='generalLoadingIconSmall'></span> : "Submit"}
+            </button>
+          </div>
+        }
+      </div>
+    )
+  }
+
+
+  const DisplayCategoryList = () => {
+    return (
+      <div className='categoriesList' ref={scrollRef}>
+        <div className='category hoverable'
+          style={selectedCategory === "All" ? selectedCategoryStyle : {}}
+          onClick={() => {
+            if (enterCategoryEditMode) return
+            setselectedBookId(null)
+            dispatch(setSelectedCategory("All"))
+            scrollRef.current && dispatch(setDashboardScrollPosition(0))
+          }}
+        >All</div>
+        {
+          categoryList.map((category) => {
+            return <div className='category hoverable' key={category}
+              style={selectedCategory === category ? selectedCategoryStyle : {}}
+              onClick={() => {
+                if (enterCategoryEditMode) return
+                setselectedBookId(null)
+                dispatch(setSelectedCategory(category))
+                scrollRef.current && dispatch(setDashboardScrollPosition(scrollRef.current?.scrollLeft))
+              }}
+            >
+              {category}
+              {enterCategoryEditMode &&
+                <img src={closeDarkblue} alt=''
+                  onClick={() => removeCategory(category)}
+                  className='mediumIcon' />}
+            </div>
+          })
+        }
+      </div>
+    )
+  }
 
   const books = selectedBooksArray.map(book => {
     return (
@@ -153,57 +278,7 @@ const Dashboard = () => {
     )
   })
 
-  const DisplayCategoryList = () => {
-    return (
-      <div className='categoriesList' ref={scrollRef}>
-        <div className='category hoverable'
-          style={selectedCategory === "All" ? selectedCategoryStyle : {}}
-          onClick={() => {
-            if (enterCategoryEditMode) return
-            setselectedBookId(null)
-            setselectedCategory("All")
-          }}
-        >All</div>
-        {
-          categoryList.map((category) => {
-            return <div className='category hoverable' key={category}
-              style={selectedCategory === category ? selectedCategoryStyle : {}}
-              onClick={() => {
-                if (enterCategoryEditMode) return
-                setselectedBookId(null)
-                setselectedCategory(category)
-              }}
-            >
-              {category}
-              {enterCategoryEditMode &&
-                <img src={closeDarkblue} alt=''
-                  onClick={() => removeCategory(category)}
-                  className='mediumIcon' />}
-            </div>
-          })
-        }
-      </div>
-    )
-  }
-
-
-  const search = (searchString: string) => {
-    setselectedBookId(null)
-    if (searchString === "") {
-      setselectedBooksArray(baseBookListForSearch)
-    }
-    if (selectedSearchType === "book") {
-      const filteredBooks = baseBookListForSearch.filter(book => book.name.toLowerCase().startsWith(searchString.toLowerCase()))
-      setselectedBooksArray(filteredBooks)
-    }
-    if (selectedSearchType === "author") {
-      const filteredBooks = baseBookListForSearch.filter(book => book.author.toLowerCase().startsWith(searchString.toLowerCase()))
-      setselectedBooksArray(filteredBooks)
-    }
-  }
-
   const DashboardPopup = () => {
-
     return (
       <div className='dashboardPopup'>
         {
@@ -266,16 +341,18 @@ const Dashboard = () => {
   }
 
 
-
   return (
     <div className='dashboardContainer'>
       {showPopup && <DashboardPopup />}
+      {showProfileOptions && <ProfileOptions />}
       <header>
         <div className='dashboardHeader1'>
           <h2>My shelf</h2>
           <div>
             <img src="" alt="" className='profileImg' />
-            <p className='profileName'>sammy</p>
+            <p className='profileName'
+              onClick={() => setshowProfileOptions(prev => !prev)}
+            >{username ?? "Anonymous"}</p>
           </div>
         </div>
         <div className='dashboardHeader2'>
