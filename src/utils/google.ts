@@ -2,7 +2,7 @@ import * as queryString from 'query-string';
 
 const stringifiedParamsLogin = queryString.default.stringify({
   client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  redirect_uri: 'http://localhost:3000/login/authenticate/google',
+  redirect_uri: 'https://selfshelf.onrender.com/login/authenticate/google',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -14,7 +14,7 @@ const stringifiedParamsLogin = queryString.default.stringify({
 
 const stringifiedParamsRegister = queryString.default.stringify({
   client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  redirect_uri: 'http://localhost:3000/register/authenticate/google',
+  redirect_uri: 'https://selfshelf.onrender.com/register/authenticate/google',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
