@@ -173,6 +173,9 @@
   .altText {
     display: none;
   }
+  .signContainer2InnerT {
+    font-size: 40px;
+  }
 }
 
 .errorTexts {

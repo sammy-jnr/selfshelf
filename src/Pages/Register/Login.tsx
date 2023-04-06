@@ -56,14 +56,14 @@ const Login = () => {
           <h2>Login to your account</h2>
           <div>
             <p>Don't have an account?</p>
-            <Link to={"/register"}><button className="signLButton">Register</button></Link>
+            <Link to={"/register"} className="hoverable"><button className="signLButton">Register</button></Link>
           </div>
         </div>
       </div>
       <div className="signContainer2">
         <div className="signContainer2Inner">
           <p className="signContainer2InnerT">Login</p>
-          <Link to={googleLoginUrl} className="link">
+          <Link to={googleLoginUrl} className="link hoverable">
             <div className="signWithGoogle" onClick={() => { }}>
               <img src={googleIcon} alt="" id="googleIcon" />
               <p>Login with google</p>
@@ -102,7 +102,7 @@ const Login = () => {
             {!isPasswordCorrect && <div className="errorTexts">Incorrect password</div>}
           </div>
           <button className="signButton" onClick={() => login(email, password)}>Sign in</button>
-          <p className="altText">Don't have an account? <Link to="/register">Register</Link></p>
+          <p className="altText">Don't have an account? <Link to="/register" className="hoverable">Register</Link></p>
         </div>
       </div>
     </div>

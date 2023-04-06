@@ -74,7 +74,7 @@ const Register = () => {
           <h2>Register a free account</h2>
           <div>
             <p>Already have an account?</p>
-            <Link to={"/login"}>
+            <Link to={"/login"} className="hoverable">
               <button className="signLButton">Login</button>
             </Link>
           </div>
@@ -83,7 +83,7 @@ const Register = () => {
       <div className="signContainer2">
         <div className="signContainer2Inner">
           <p className="signContainer2InnerT">Get Started</p>
-          <Link to={googleRegisterUrl} className="link">
+          <Link to={googleRegisterUrl} className="link hoverable">
             <div className="signWithGoogle">
               <img src={googleIcon} alt="" id="googleIcon" />
               <p>Sign up with google</p>
@@ -205,7 +205,7 @@ const Register = () => {
           </button>
 
           <p className="altText">
-            Already have an account? <Link to="/login">login</Link>
+            Already have an account? <Link to="/login" className="hoverable">login</Link>
           </p>
         </div>
       </div>

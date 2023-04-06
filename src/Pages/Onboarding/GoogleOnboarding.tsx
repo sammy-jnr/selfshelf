@@ -79,11 +79,14 @@ const GoogleOnboarding = () => {
           dispatch(setUserEmail(email))
           navigate("/dashboard")
           localStorage.setItem("email", email)
+          navigate("/dashboard")
           setisLoading(false)
         })
         .catch((err) => {
           console.log(err)
+          navigate("/login")
           setisLoading(false)
+          toast("An error occurred, try again", { type: "error" })
         })
     }
   }

@@ -9,7 +9,8 @@ import Register from './Pages/Register/Register';
 import Login from './Pages/Register/Login';
 import { getCookie, setCookie } from './utils/cookies';
 import { getNewAccessToken, getUser } from './utils/axiosCalls';
-import { useDispatch } from "react-redux"
+import { RootState } from "./store"
+import { useDispatch, useSelector } from "react-redux"
 import { setInitialLoading, setIsLoggedIn } from './Features/AuthSlice';
 import { setBooksArray, setCategoriesArray, setUsername } from './Features/MainSlice';
 import { ProcessedBookInterface } from './Interface';
@@ -23,18 +24,23 @@ import ProtectedRoutes from './ProtectedRoutes';
 function App() {
 
   const dispatch = useDispatch()
+
+  const store = useSelector((store: RootState) => store)
+  const isLoggedIn = store.auth.isLoggedIn
+
   const fetchUserInfoFromDB = () => {
+    if (isLoggedIn) return
     getUser()
       .then((res) => {
         const { books, categories, username } = res.data
         dispatch(setBooksArray(books.sort((a: ProcessedBookInterface, b: ProcessedBookInterface) => a.name.localeCompare(b.name))))
         dispatch(setCategoriesArray(categories))
         dispatch(setUsername(username))
-        dispatch(setIsLoggedIn(true))
         dispatch(setInitialLoading(false))
+        dispatch(setIsLoggedIn(true))
       })
       .catch(() => {
-
+        dispatch(setInitialLoading(false))
       })
   }
 
@@ -46,7 +52,11 @@ function App() {
       const refreshToken = getCookie("refreshToken")
       if (refreshToken) {
         const userEmail = localStorage.getItem("email")
-        if (!userEmail) return
+        if (!userEmail) {
+          dispatch(setIsLoggedIn(false))
+          dispatch(setInitialLoading(false))
+          return
+        }
         getNewAccessToken(userEmail)
           .then((res) => {
             const { accessToken, refreshToken } = res.data
@@ -55,14 +65,15 @@ function App() {
             fetchUserInfoFromDB()
           })
           .catch(() => {
-
+            dispatch(setIsLoggedIn(false))
+            dispatch(setInitialLoading(false))
           })
       } else {
         dispatch(setIsLoggedIn(false))
         dispatch(setInitialLoading(false))
       }
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className="App">
