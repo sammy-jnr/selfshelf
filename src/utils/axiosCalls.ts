@@ -12,8 +12,7 @@ const headers = {
 
 
 
-// const baseUrl = "https://selfshelfbackend.onrender.com"
-const baseUrl = "http://localhost:5000"
+const baseUrl = "https://selfshelfbackend.onrender.com"
 
 export const registerNewUser = (username:string,email:string,password:string) => {
   return axios({
