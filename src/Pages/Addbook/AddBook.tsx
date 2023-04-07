@@ -191,7 +191,7 @@ const AddBook = () => {
           <input type="checkbox" name="addBookItemFavouriteCheckbox" id="addBookItemFavouriteCheckbox" ref={bookIsFavouriteRef} />
           Add to favourites
         </label>
-        <input type="number" className="addBookItems" placeholder='ISBN(optional)' ref={bookISBNRef} />
+        <input type="text" className="addBookItems" placeholder='ISBN(optional)' ref={bookISBNRef} />
         <input type="link" className="addBookItems" placeholder='Link to an online copy(Optional)' ref={bookLinkRef} />
         <div className="addBookItemCategoriesDiv">
           <div className='addBookItemCategoriesDiv_line1'>

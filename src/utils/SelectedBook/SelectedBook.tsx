@@ -44,7 +44,7 @@ const SelectedBook = (props: { book: ProcessedBookInterface | undefined }) => {
         <div className="bookInfoItemsDiv">
           <p className='bookInfoItemsKey'>Link</p>
           <p className='bookInfoItemsValue bookInfoLink'>{
-            <Link to={book.link ? book.link : ""} className='booklink'>{book.link}</Link>
+            <Link to={book.link ? book.link : ""} className='booklink' target='_blank' rel='noopener noreferrer'>{book.link}</Link>
             ||
             "No link"
           }
@@ -60,15 +60,15 @@ const SelectedBook = (props: { book: ProcessedBookInterface | undefined }) => {
         </div>
         <div className="bookInfoItemsDiv">
           <p className='bookInfoItemsKey'>Date added</p>
-          <p className='bookInfoItemsValue'>{date.toLocaleString('en-US',{month: "long", year:"numeric"}).split(",")[0]}</p>
+          <p className='bookInfoItemsValue'>{date.toLocaleString('en-US', { month: "long", year: "numeric" }).split(",")[0]}</p>
         </div>
         <div className="bookInfoItemsDiv">
           <p className='bookInfoItemsKey bookInfoDescriptionKey'>Description</p>
           <p className='bookInfoItemsValue bookInfoDescriptionValue'>{book.description}</p>
         </div>
       </div>
-      {book.pdfFile && <div className="bookInfoItemsFileDiv">
-        <Link to={book.pdfFile[0]} className='link'>
+      {book.pdfFile && book.pdfFile?.length > 1 && <div className="bookInfoItemsFileDiv">
+        <Link to={book.pdfFile[0]} className='link hoverable'>
           <button>Download</button>
         </Link>
       </div>}

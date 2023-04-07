@@ -206,40 +206,7 @@ const Dashboard = () => {
   }
 
 
-  const DisplayCategoryList = () => {
-    return (
-      <div className='categoriesList' ref={scrollRef}>
-        <div className='category hoverable'
-          style={selectedCategory === "All" ? selectedCategoryStyle : {}}
-          onClick={() => {
-            if (enterCategoryEditMode) return
-            setselectedBookId(null)
-            dispatch(setSelectedCategory("All"))
-            scrollRef.current && dispatch(setDashboardScrollPosition(0))
-          }}
-        >All</div>
-        {
-          categoryList.map((category) => {
-            return <div className='category hoverable' key={category}
-              style={selectedCategory === category ? selectedCategoryStyle : {}}
-              onClick={() => {
-                if (enterCategoryEditMode) return
-                setselectedBookId(null)
-                dispatch(setSelectedCategory(category))
-                scrollRef.current && dispatch(setDashboardScrollPosition(scrollRef.current?.scrollLeft))
-              }}
-            >
-              {category}
-              {enterCategoryEditMode &&
-                <img src={closeDarkblue} alt=''
-                  onClick={() => removeCategory(category)}
-                  className='mediumIcon' />}
-            </div>
-          })
-        }
-      </div>
-    )
-  }
+
 
   const books = selectedBooksArray.map(book => {
     return (
@@ -248,7 +215,8 @@ const Dashboard = () => {
           setselectedBookId(book.id)
         }}
       >
-        <div className='bookImg'>
+        <div className='bookImgDiv'>
+          {book.isFavourite && <p className='favouriteText'>Favourite</p>}
           <img src={book.imgFile[0]} alt="" className='bookImage' />
         </div>
         <div className='bookBasicInfo'>
@@ -260,7 +228,6 @@ const Dashboard = () => {
             })}
           </div>
         </div>
-        {book.isFavourite && <p className='favouriteText'>Favourite</p>}
         {selectedBookId === book.id &&
           <Link to={`/dashboard/info/${book.id}`}>
             <img src={downIcon} alt="" className='showMore' />
@@ -362,7 +329,36 @@ const Dashboard = () => {
                 onClick={() => setenterCategoryEditMode(prev => !prev)} />
             </div>
           </h2>
-          <DisplayCategoryList />
+          <div className='categoriesList' ref={scrollRef}>
+            <div className='category hoverable'
+              style={selectedCategory === "All" ? selectedCategoryStyle : {}}
+              onClick={() => {
+                if (enterCategoryEditMode) return
+                setselectedBookId(null)
+                dispatch(setSelectedCategory("All"))
+                scrollRef.current && dispatch(setDashboardScrollPosition(0))
+              }}
+            >All</div>
+            {
+              categoryList.map((category) => {
+                return <div className='category hoverable' key={category}
+                  style={selectedCategory === category ? selectedCategoryStyle : {}}
+                  onClick={() => {
+                    if (enterCategoryEditMode) return
+                    setselectedBookId(null)
+                    dispatch(setSelectedCategory(category))
+                    scrollRef.current && dispatch(setDashboardScrollPosition(scrollRef.current?.scrollLeft))
+                  }}
+                >
+                  {category}
+                  {enterCategoryEditMode &&
+                    <img src={closeDarkblue} alt=''
+                      onClick={() => removeCategory(category)}
+                      className='mediumIcon' />}
+                </div>
+              })
+            }
+          </div>
         </div>
       </header>
       <div className='searchSection'>
