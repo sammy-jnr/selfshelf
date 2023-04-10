@@ -31,7 +31,7 @@ function Home() {
             {
               isLoading
                 ?
-                <span className="loadingIcon"></span>
+                <span className="generalLoadingIcon"></span>
                 :
                 isLoggedIn
                   ?

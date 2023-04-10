@@ -9,7 +9,7 @@ const ProtectedRoutes = () => {
   const initialLoading = store.auth.initialLoading
   const isLoggedIn = store.auth.isLoggedIn
 
-  if(initialLoading)return null
+  if(initialLoading)return <div className="generalLoadingDiv"><span className="generalLoadingIconLarge"></span></div>
   return (
     isLoggedIn ? <Outlet/> : <Navigate to={"/register"} state={{ from: location }} replace/>
   )

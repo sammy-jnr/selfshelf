@@ -126,6 +126,7 @@
   margin: 0 20px;
   width: calc(100% - 40px);
   height: 40px;
+  min-height: 40px;
   background-color: black;
   color: white;
   border: none;
@@ -148,6 +149,7 @@
   color: white;
   font-size: 18px;
   font-weight: 600;
+  border-radius: 5px;
 }
 
 #googleIcon {
@@ -158,6 +160,16 @@
 .altText {
   display: block;
   margin: 20px;
+}
+
+@media screen and (min-width:50px) and (max-width:350px) {
+  .signWithGoogle {
+    padding: 10px;
+    font-size: 17px;
+  }
+  #googleIcon {
+    margin-right: 20px;
+  }
 }
 
 @media screen and (min-width:1200px) {

@@ -59,10 +59,14 @@ function App() {
         }
         getNewAccessToken(userEmail)
           .then((res) => {
-            const { accessToken, refreshToken } = res.data
+            const { accessToken, refreshToken, books, categories, username } = res.data
             setCookie("accessToken", accessToken, 1)
             setCookie("refreshToken", refreshToken, 7)
-            fetchUserInfoFromDB()
+            dispatch(setBooksArray(books.sort((a: ProcessedBookInterface, b: ProcessedBookInterface) => a.name.localeCompare(b.name))))
+            dispatch(setCategoriesArray(categories))
+            dispatch(setUsername(username))
+            dispatch(setInitialLoading(false))
+            dispatch(setIsLoggedIn(true))
           })
           .catch(() => {
             dispatch(setIsLoggedIn(false))
