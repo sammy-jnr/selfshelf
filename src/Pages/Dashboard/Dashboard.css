@@ -160,6 +160,18 @@
 .firstBookDiv img {
   width: 75%;
 }
+@media screen and (max-width:350px) {
+  .firstBookDiv {
+    width: 70%;
+    top: calc(50% - 80px);
+  }
+  .firstBookDiv p {
+    font-size: 20px;
+  }
+  .firstBookDiv img {
+    width: 60%;
+  }
+}
 
 .noBookMatch {
   margin: auto;
@@ -294,6 +306,17 @@
   padding: 10px 20px;
   border-radius: 30px;
   border: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px #003700;
+}
+
+.addBookButton:hover {
+  box-shadow: 0 3px #003700;
+  margin-bottom: -2px;
+}
+.addBookButton:active {
+  box-shadow: 0 0 #003700;
 }
 
 .dashboardPopup {

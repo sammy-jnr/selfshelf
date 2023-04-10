@@ -31,8 +31,10 @@ const Register = () => {
   let [isEmailInUse, setisEmailInUse] = useState<boolean>(false);
   let [isNameCorrect, setisNameCorrect] = useState<boolean>(true);
 
+  const [loading, setloading] = useState<boolean>(false);
+
   const register = async () => {
-    if (username.length < 3) {
+    if (username.length < 1) {
       setisNameCorrect(false);
       return;
     }
@@ -48,6 +50,7 @@ const Register = () => {
       setisPasswordStrong(false);
       return;
     }
+    setloading(true)
     registerNewUser(username, email, password)
       .then((res) => {
         dispatch(setIsLoggedIn(true))
@@ -57,8 +60,10 @@ const Register = () => {
         dispatch(setUserEmail(email))
         navigate("/dashboard")
         localStorage.setItem("email", email)
+        setloading(false)
       })
       .catch((error) => {
+        setloading(false)
         if (error.response.data === "Email has already been used, login") {
           setisEmailInUse(true)
         } else {
@@ -102,7 +107,7 @@ const Register = () => {
             />
             {!isNameCorrect && (
               <div className="errorTexts">
-                Name needs to be at least 3 letters
+                Name needs to be at least 2 letters
               </div>
             )}
           </div>
@@ -201,7 +206,7 @@ const Register = () => {
             )}
           </div>
           <button className="signButton" onClick={() => register()}>
-            Sign up
+            {loading ? <span className="generalLoadingIcon"></span> : "Sign up"}
           </button>
 
           <p className="altText">

@@ -317,8 +317,11 @@ const Dashboard = () => {
           <h2>My shelf</h2>
           <div>
             <img src="" alt="" className='profileImg' />
-            <p className='profileName'
-              onClick={() => setshowProfileOptions(prev => !prev)}
+            <p className='profileName hoverable'
+              onClick={() => {
+                setshowProfileOptions(prev => !prev)
+                setshowChangeNameDiv(false)
+              }}
             >{username ?? "Anonymous"}</p>
           </div>
         </div>

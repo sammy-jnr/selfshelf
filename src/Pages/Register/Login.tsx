@@ -24,7 +24,11 @@ const Login = () => {
   const [isUserRegistered, setisUserRegistered] = useState(true);
   const [isPasswordCorrect, setisPasswordCorrect] = useState(true);
 
+  const [loading, setloading] = useState<boolean>(false);
+
   const login = (email: string, password: string) => {
+    if (email.length < 3) return
+    setloading(true)
     loginDB(email, password)
       .then((res) => {
         const response = res.data
@@ -37,8 +41,10 @@ const Login = () => {
         dispatch(setIsLoggedIn(true))
         navigate("/dashboard")
         localStorage.setItem("email", email)
+        setloading(false)
       })
       .catch((error) => {
+        setloading(false)
         if (error.response.data === "Couldn't find user") {
           setisUserRegistered(false)
         } else if (error.response.data === "Incorrect password") {
@@ -101,7 +107,9 @@ const Login = () => {
             </div>
             {!isPasswordCorrect && <div className="errorTexts">Incorrect password</div>}
           </div>
-          <button className="signButton" onClick={() => login(email, password)}>Sign in</button>
+          <button className="signButton" onClick={() => login(email, password)}>
+            {loading ? <span className="generalLoadingIcon"></span> : "Sign in"}
+          </button>
           <p className="altText">Don't have an account? <Link to="/register" className="hoverable">Register</Link></p>
         </div>
       </div>
