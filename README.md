@@ -30,4 +30,4 @@ Your shelf is private and online through your account can you access your books.
 
 It is free to use, and you can create an account in a minute, using email, or your Google account
 
-## You can check it out [here] (https://reactjs.org/)
+## You can check it out [here] (https://selfshelf.onrender.com)
