@@ -21,7 +21,7 @@ function Home() {
           Welcome to the best online personal library
         </h1>
         <p>Store and organize your books for free in the best way possible</p>
-        <Link to={"/dashboard"}>
+        <Link to={"/dashboard"} className="link">
           <button
             onClick={() => {
               if (isLoading) return
