@@ -141,6 +141,7 @@ input:focus{
 
 .link{
   all: unset;
+  text-decoration: none;
 }
 .generalLoadingDiv{
   width: 100%;
