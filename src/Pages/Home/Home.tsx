@@ -27,11 +27,12 @@ function Home() {
               if (isLoading) return
               isLoggedIn ? navigate("/dashboard") : navigate("/register")
             }}
+            className="dashboardButton"
           >
             {
               isLoading
                 ?
-                <span className="generalLoadingIcon"></span>
+                <span className="generalLoadingIconBlue"></span>
                 :
                 isLoggedIn
                   ?
