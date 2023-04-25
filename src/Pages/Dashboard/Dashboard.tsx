@@ -84,6 +84,27 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    const unselectBook = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target || !target.parentElement || !target.parentElement.parentElement || !target.parentElement.parentElement.parentElement || !target.parentElement.parentElement.parentElement.parentElement) return
+      if (
+        !target.classList.contains("book") &&
+        !target.parentElement.classList.contains("book") &&
+        !target.parentElement.parentElement.classList.contains("book") &&
+        !target.parentElement.parentElement.parentElement.classList.contains("book") &&
+        !target.parentElement.parentElement.parentElement.parentElement.classList.contains("book")
+      ) {
+        setselectedBookId(null)
+      }
+    }
+    window.addEventListener("click", (e) => unselectBook(e))
+    return () => {
+      window.removeEventListener("click", (e) => unselectBook(e))
+    }
+  }, []);
+
+
+  useEffect(() => {
     if (selectedCategory === "All") {
       setselectedBooksArray(booksArray)
       setbaseBookListForSearch(booksArray)
