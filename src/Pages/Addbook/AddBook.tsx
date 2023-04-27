@@ -75,7 +75,7 @@ const AddBook = () => {
       if (file.size > 5048000) {
         if (fileRef.current)
           fileRef.current.value = ""
-          toast("File must be less than 5MB",{type:"error"})
+        toast("File must be less than 5MB", { type: "error" })
         return
       }
       const reader = new FileReader()
@@ -105,8 +105,9 @@ const AddBook = () => {
     const categories = selectedCategories
     const rating = bookRating
 
-    if(pdfFile && pdfFile?.size > 5048000){
-      toast("Pdf is too large, max size(5MB)", {type: "error"})
+    if (pdfFile && pdfFile?.size > 5048000) {
+      toast("Pdf is too large, max size(5MB)", { type: "error" })
+      setisLoading(false)
       return
     }
 
@@ -114,6 +115,7 @@ const AddBook = () => {
       toast("Some mandatory fields are still empty", {
         type: "error"
       })
+      setisLoading(false)
       return
     }
 
@@ -219,7 +221,14 @@ const AddBook = () => {
                 <button
                   onClick={() => {
                     if (newGenreRef.current?.value === "" || !newGenreRef.current?.value) return
-                    if (categories.includes(newGenreRef.current?.value)) {
+                    let err = false
+                    categories.forEach((category) => {
+                      if (category.toLowerCase() === newGenreRef.current?.value.toLowerCase()) {
+                        err = true
+                        return
+                      }
+                    })
+                    if (err) {
                       setcategoryNameExists(true)
                       return
                     }
