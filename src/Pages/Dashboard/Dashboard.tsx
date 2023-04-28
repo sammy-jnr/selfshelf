@@ -158,8 +158,13 @@ const Dashboard = () => {
     removeCategoryDb(editedBooks, newCategoryList)
       .catch((error) => {
         console.log(error)
-        toast("Couldn't add book, reload and try again.", { type: "error" })
+        toast("Couldn't delete category, reload and try again.", { type: "error" })
       })
+    if(selectedCategory === category){
+      const newcat = categoryList.findIndex(cat => cat === category)
+      const finalCat = newcat === 0 ? 0 : newcat - 1
+      dispatch(setSelectedCategory(categoryList[finalCat]))
+    }
   }
 
   const search = (searchString: string) => {
